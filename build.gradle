@@ -1,20 +1,41 @@
 buildscript {
     repositories {
-        mavenCentral()
+        //mavenCentral()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven{ url "https://maven.aliyun.com/repository/jcenter"}
+        maven{ url "https://maven.aliyun.com/repository/google"}
+        maven{ url "https://maven.aliyun.com/repository/gradle-plugin"}
+        maven{ url "https://maven.aliyun.com/repository/spring"}
+        maven{ url "https://maven.aliyun.com/repository/spring-plugin"}
+        maven{ url "https://maven.aliyun.com/repository/grails-core"}
+        maven{ url "https://maven.aliyun.com/repository/apache-snapshots"}
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
         classpath("org.thymeleaf:thymeleaf:3.0.8.RELEASE")
         classpath("au.com.dius:pact-jvm-provider-gradle:4.0.3")
+        classpath 'ru.vyarus:gradle-pom-plugin:1.3.0'
     }
 }
+group 'com.pact.example'
+version '1.0.0'
+
 
 allprojects {
   apply plugin: 'java'
   apply plugin: 'idea'
+  apply plugin: 'maven'
 
   repositories {
-     mavenCentral()
+     //mavenCentral()
+      maven { url "https://maven.aliyun.com/repository/public" }
+      maven{ url "https://maven.aliyun.com/repository/jcenter"}
+      maven{ url "https://maven.aliyun.com/repository/google"}
+      maven{ url "https://maven.aliyun.com/repository/gradle-plugin"}
+      maven{ url "https://maven.aliyun.com/repository/spring"}
+      maven{ url "https://maven.aliyun.com/repository/spring-plugin"}
+      maven{ url "https://maven.aliyun.com/repository/grails-core"}
+      maven{ url "https://maven.aliyun.com/repository/apache-snapshots"}
   }
 }
 
@@ -34,6 +55,21 @@ subprojects {
       testImplementation("au.com.dius:pact-jvm-consumer-java8:4.0.3")
   }
 
+    task writeNewPom {
+        pom {
+            project {
+                inceptionYear '2018'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+            }
+        }.writeTo("pom.xml")
+    }
+
 }
 
 project(':example-consumer-miku') {
@@ -48,6 +84,7 @@ project(':example-consumer-miku') {
     test {
         systemProperties['pact.rootDir'] = "$rootDir/Pacts/Miku"
     }
+
 
     pact {
         publish {
@@ -81,7 +118,7 @@ project(':example-provider') {
 
     jar {
         archiveBaseName = 'example-provider'
-        archiveVersion =  '1.0.0'
+        archiveVersion = '1.0.0'
     }
 
     pact {
@@ -102,7 +139,7 @@ project(':example-provider') {
                 }
 
                 // Test Pacts from Pact Broker
-                hasPactsFromPactBroker(mybrokerUrl, authentication: ['Basic', mybrokerUser, mybrokerPassword])
+                //hasPactsFromPactBroker(mybrokerUrl, authentication: ['Basic', mybrokerUser, mybrokerPassword])
 
                 // This is for local Pact Broker in Docker
                 //hasPactsFromPactBroker("http://localhost")
