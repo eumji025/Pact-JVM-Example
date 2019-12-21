@@ -4,15 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Pact-JVM-Example</groupId>
   <artifactId>example-consumer-miku</artifactId>
-  <version>unspecified</version>
-  <inceptionYear>2018</inceptionYear>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+  <parent>
+    <groupId>com.pact.example</groupId>
+    <artifactId>Pact-JVM-Example</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
